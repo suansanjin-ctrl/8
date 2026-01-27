@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>中华丁氏帝国 · 丁帝御览（紫晗四年）</title>
+  <meta name="description" content="中华丁氏帝国，紫晗四年。丁帝开国，道山举义，列传与纪年并陈。" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body id="home">
+  <div class="topbar">
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="#home">
+          <span class="mini-seal" aria-hidden="true"></span>
+          <span class="title">
+            <b>中华丁氏帝国</b>
+            <span>紫晗四年 · 金龙为徽 · 朱玺为信</span>
+          </span>
+        </a>
+        <nav class="links" aria-label="导航">
+          <a class="active" href="#home">御前</a>
+          <a href="#edict">诏书</a>
+          <a href="#chronicle">纪年</a>
+          <a href="#ministers">列传</a>
+          <a href="#campaigns">征讨</a>
+          <a href="#seal">国玺</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+	  <main class="wrap">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-card">
+        <div class="glow" aria-hidden="true"></div>
+        <div class="hero-inner">
+          <div>
+            <h1 class="h1">丁帝御极，万象皆新</h1>
+            <p class="subtitle">
+              国号曰：<b style="color:var(--gold2)">中华丁氏帝国</b>。<br/>
+              其兴也，发自苏州道山：夜鼓三通，旌旗如霞；金龙环徽，照彻城阙。<br/>
+              今为<b style="color:var(--gold2)">紫晗四年</b>，四海称庆，百司肃穆，朝野相传：<i>帝心如镜，帝言如金，帝威如山，帝德如春。</i>
+            </p>
+
+            <div class="badges" role="list" aria-label="帝国纪要">
+              <span class="badge" role="listitem">年号：紫晗</span>
+              <span class="badge" role="listitem">今岁：紫晗四年</span>
+              <span class="badge" role="listitem">开国：道山举义</span>
+              <span class="badge" role="listitem">大略：北上定关中</span>
+            </div>
+
+            <div class="cta">
+              <a class="btn" href="#edict">披览诏书</a>
+              <a class="btn secondary" href="#ministers">观群臣列传</a>
+            </div>
+          </div>
+
+          <div>
+            <img class="crest" src="./assets/crest.jpeg" alt="帝国徽记：金龙环护，中书丁氏帝国" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="sep"/>
+
+    <!-- 诏书（带卷启与金粉落字） -->
+    <section class="section seal-watermark edict" id="edict">
+      <h2>开国诏书</h2>
+
+      <div class="edict-controls">
+        <button class="btn" id="edictToggle">奉诏展开</button>
+        <span class="small">（卷启如开、金粉如雨；再按可重演）</span>
+      </div>
+
+      <div class="edict-scroll" id="edictScroll" aria-hidden="true">
+        <div class="gold-dust" id="goldDust" aria-hidden="true"></div>
+
+        <div class="edict-paper">
+          <p class="edict-line">诏曰：</p>
+          <p class="edict-line">朕惟天道幽微，民心浩荡。世途久昏，群盗并起；纲纪既坠，草泽生烟。</p>
+          <p class="edict-line">今苏州道山，义旗忽张，如电破云；士民相携，如潮赴海。</p>
+          <p class="edict-line">朕不忍万家灯火沉于兵燹，遂亲秉旌钺，以定其乱。</p>
+          <p class="edict-line">自兹建国，号曰 <b>中华丁氏帝国</b>；改旧章之弊，立新制之纲。</p>
+          <p class="edict-line">使道路通、仓廪实、礼乐兴、奸宄惧；使四海知归，万方知畏。</p>
+          <p class="edict-line">凡我臣民，同心同德；违者虽亲必诛，从者虽微必赏。钦此。</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="kicker">
+            <span class="tag">帝德</span><span class="tag">史臣颂</span>
+          </div>
+          <h3>史臣称德</h3>
+          <p>
+            丁帝其人，外严而内仁，断如霆霓，恩如膏雨。临朝则万机俱静，出巡则百姓自安。<br/>
+            其用兵也，不好杀戮，喜定人心；其治国也，不尚虚词，专贵实效。<br/>
+            故曰：<b style="color:var(--gold2)">帝在，则天下自有秩序；帝言，则四方皆知归途。</b>
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="kicker">
+            <span class="tag">国是</span><span class="tag">典章</span>
+          </div>
+          <h3>紫晗新制（略）</h3>
+          <ul>
+            <li><b>安民</b>：先抚其饥寒，再禁其奸宄</li>
+            <li><b>通衢</b>：驿路如脉，万里相连</li>
+            <li><b>肃纪</b>：法如霜刃，邪念自寒</li>
+          </ul>
+          <p class="small" style="margin-top:10px;">（若你要更“正史”，我还能续写百官六曹、邮驿符节、礼乐仪制。）</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="sep"/>
+
+    <!-- 纪年 -->
+    <section class="section" id="chronicle">
+      <h2>紫晗纪年</h2>
+      <p class="lead">史官记：道山举义，金龙照夜；帝国由是而起，气象万千。</p>
+
+      <div class="grid">
+        <div class="card full">
+          <h3>紫晗元年：道山风雷</h3>
+          <p>
+            是岁也，苏城夜色如墨，忽闻鼓角三叠。丁帝登道山，披氅立风中，目光如炬。<br/>
+            一言既出，众心自归；旌旗既动，群情如潮。市井相告曰：<i>“今日之后，天下另有天。”</i>
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>紫晗二年：设官分职</h3>
+          <p>帝命百司，各正其位：礼以安众，法以镇奸，路以通国。于是城阙有序，百业并兴。</p>
+        </div>
+
+        <div class="card">
+          <h3>紫晗三年：北上定策</h3>
+          <p>帝北上而定关中，先修驿、后整粮、再举兵。其行也如龙，所至处风声皆肃。</p>
+        </div>
+
+        <div class="card full">
+          <h3>紫晗四年：关中渐清，苏城再定</h3>
+          <p>
+            是岁，关中气象大定，四境渐清；而苏州暗流复作，奸回伺隙。<br/>
+            然帝国法度既立，群臣各司其职：或断其路，或正其名，或击其形。<br/>
+            于是乱起辄平，尘扬辄落，皆归于一句：<b style="color:var(--gold2)">“丁帝在，天下不乱。”</b>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="sep"/>
+
+    <!-- 列传 -->
+    <section class="section" id="ministers">
+      <h2>列传 · 帝国群臣</h2>
+      <p class="lead">诸臣各有其光：或如剑、或如桥、或如礼法之钟。点卡片可阅全文。</p>
+
+      <div class="grid">
+        <div class="card" role="button" tabindex="0"
+          data-bio='{
+            "title":"丁帝本纪",
+            "sub":"开国御极 · 紫晗立年 · 一言定四方",
+            "html":"<p>丁帝者，苏州人也。少而沉静，目有光，语不妄。见世道崩坏，常曰：<b>“欲定天下，当先定人心。”</b></p><p>道山举义，帝亲临其事，禁扰民、止滥杀、明赏罚。故士卒甘为其死，百姓愿为其守。即位之后，昼理百务，夜阅章奏；其威不怒而肃，其恩不言而泽。</p><p>史臣赞曰：<b>“帝心若鉴，照奸如昼；帝手若衡，轻重不差。”</b></p>"
+          }'>
+          <div class="kicker"><span class="tag">本纪</span><span class="tag">御极</span></div>
+          <h3>丁帝</h3>
+          <p>其威如山，其德如春；其言一出，群心自定。帝在，则天下自有次序。</p>
+          <p class="small" style="margin-top:10px;color:var(--gold2)">点此阅本纪 →</p>
+        </div>
+
+        <div class="card" role="button" tabindex="0"
+          data-bio='{
+            "title":"刘将军列传",
+            "sub":"骑羊大将 · 奇兵如风 · 羊铃一响，影落千军",
+            "html":"<p>刘将军者，号“骑羊大将”。兵贵神速，胜在奇正。常以白羊为前导，铃声清越，闻者胆寒。</p><p>道山之役，刘将军穿巷入市，护民不惊；北上之行，雪夜断粮，乃驱羊负囊，行山径三百里，军中赖之而全。</p><p>帝赐金符，命掌轻骑。史臣曰：<b>“其来也不见尘，其击也不见影；敌方未觉，胜负已定。”</b></p>"
+          }'>
+          <div class="kicker"><span class="tag">列传</span><span class="tag">骑羊大将</span></div>
+          <h3>刘将军</h3>
+          <p>轻骑如电，奇兵如风。羊铃为号，动则雷霆，止则寂然。</p>
+          <p class="small" style="margin-top:10px;color:var(--gold2)">点此阅列传 →</p>
+        </div>
+
+        <div class="card" role="button" tabindex="0"
+          data-bio='{
+            "title":"郝帝师列传",
+			"sub":"经史在胸 · 礼法如城 · 一纸定章，万口皆服",
+            "html":"<p>郝帝师者，居庙堂而心在天下。言简而意深，落笔而规矩自成。</p><p>开国之初，群臣议制不一，争如沸。帝师独起，取旧章之精华、补新制之锋芒，折衷而立纲纪。又请兴学馆，收寒门俊彦，曰：<i>“国之久安，不在甲胄多，在人心明。”</i></p><p>帝从之，文教自此大兴。史臣曰：<b>“其笔如剑，其理如钟；一鸣则四方皆正。”</b></p>"
+          }'>
+          <div class="kicker"><span class="tag">列传</span><span class="tag">帝师</span></div>
+          <h3>郝帝师</h3>
+          <p>礼法如城，文章如刀。众议喧哗时，他一句便能让天下安静。</p>
+          <p class="small" style="margin-top:10px;color:var(--gold2)">点此阅列传 →</p>
+        </div>
+
+        <div class="card" role="button" tabindex="0"
+          data-bio='{
+            "title":"王交通卿列传",
+            "sub":"掌通衢 · 修驿传 · 一纸路网，万里归心",
+            "html":"<p>王交通卿者，主道路驿传。帝国初定，道阻邮绝，民心散若沙。交通卿昼夜画图，先通粮道，再通商道，继而通学道。</p><p>北上关中，卿先行勘路：修桥三十六，设驿七十二，使军行不滞、粮运不断。帝叹曰：<b>“朕得此卿，胜得十万甲兵。”</b></p><p>民间亦传：<i>“路到处，心就安；驿灯亮，梦亦甜。”</i></p>"
+          }'>
+          <div class="kicker"><span class="tag">列传</span><span class="tag">交通</span></div>
+          <h3>王交通卿</h3>
+          <p>修桥设驿，通衢如脉；帝国的血路由他打通，万里皆达。</p>
+          <p class="small" style="margin-top:10px;color:var(--gold2)">点此阅列传 →</p>
+        </div>
+
+        <div class="card full" role="button" tabindex="0"
+          data-bio='{
+            "title":"姜贼乱记",
+            "sub":"昔为教宗，后为逆贼 · 苏州数作乱，终为帝威所压",
+            "html":"<p>姜氏者，初以教务得势，善鼓众口，巧饰辞章。帝念其可安人心，俾掌教务，以示兼容。</p><p>然姜氏外恭内狡，久而生逆：或伪传密旨，或惑众聚徒，乘帝北上定关中之际，于苏州屡作乱端。市井惊疑，风声鹤唳。</p><p>帝闻之曰：<i>“朕可容异说，不容乱民；朕可宽一时，不宽祸根。”</i>遂命：王交通卿断其往来，郝帝师出檄正名，刘将军疾驰回师。于是乱起辄平，谋兴辄灭。末后姜贼众散如鸟，计穷如烛。</p><p>史臣书：<b>“逆者自逆，正者自正；天不助贼，民不从贼。”</b></p>"
+          }'>
+          <div class="kicker"><span class="tag">逆乱</span><span class="tag">苏州风波</span><span class="tag">镇压</span></div>
+          <h3>姜贼</h3>
+          <p>昔以教名聚众，终以逆名自焚。乘帝北上之际数作乱，皆为帝国法度所折。</p>
+          <p class="small" style="margin-top:10px;color:var(--gold2)">点此阅乱记 →</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="sep"/>
+
+    <!-- 征讨 -->
+    <section class="section" id="campaigns">
+      <h2>北上定关中 · 龙行虎步</h2>
+      <p class="lead">帝行如龙，军列如林；旗影过处，风亦肃然。</p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="kicker"><span class="tag">军略</span><span class="tag">帝断</span></div>
+          <h3>定关中三策（华丽版）</h3>
+          <ul>
+            <li>先抚民：开仓如雨，榜文如星</li>
+            <li>再通路：驿灯连天，粮脉不绝</li>
+            <li>后决战：奇兵绕影，主军压境</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="kicker"><span class="tag">史臣颂</span><span class="tag">盛赞</span></div>
+          <h3>史臣曰</h3>
+          <p>
+            帝之胜，不在多言，胜在多定；不在多杀，胜在多得。得人心、得时势、得万里通衢。<br/>
+            一言既出，城阙自安；一令既行，四境自清。
+          </p>
+        </div>
+
+        <div class="card full">
+          <h3>苏州再定（节录）</h3>
+          <p>
+            帝北上之时，后方风波复作。姜贼欲以妖言动众，以伪诏惑民。然帝国法度已张，群臣分进合击：<br/>
+            <b style="color:var(--gold2)">断其路</b>则势穷，<b style="color:var(--gold2)">正其名</b>则众散，<b style="color:var(--gold2)">击其形</b>则乱灭。<br/>
+            于是苏城复安，钟声复和，百姓相庆曰：<i>“帝在，夜可安眠。”</i>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="sep"/>
+
+    <!-- 国玺 -->
+    <section class="section seal-watermark" id="seal">
+      <h2>国玺 · 朱印镇国</h2>
+      <p class="lead">
+        玺者，信也；信者，国之骨也。丁帝以朱玺昭示天下：<b style="color:var(--gold2)">言必有据，令必有凭。</b>
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>玺文</h3>
+          <p>“丁氏帝国”四字，方正如城，锋棱如刃；印下则百司肃，玺动则群心定。</p>
+        </div>
+        <div class="card">
+          <h3>用玺之制</h3>
+          <ul>
+            <li>赈民、修路、封赏，皆以玺为信</li>
+            <li>伪玺伪诏，罪同乱国（姜贼乱端，亦由此败）</li>
+          </ul>
+        </div>
+        <div class="card full" style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+          <img src="./assets/seal.jpeg" alt="朱玺：丁氏帝国" style="width:min(320px, 100%); border-radius:18px; border:1px solid rgba(215,181,109,.18); box-shadow:0 16px 60px rgba(0,0,0,.35);" />
+          <div style="flex:1; min-width:240px;">
+            <h3 style="margin-top:0;">御制小赞（拟）</h3>
+            <p class="lead" style="margin-top:0;">
+              金龙环徽，朱玺照心。<br/>
+              道山起义，天地同临；紫晗四载，万象更新。<br/>
+              路由王卿通，章由郝师成；羊铃催捷报，逆贼化飞尘。<br/>
+              ——丁帝御制（拟）
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <hr class="sep"/>
+      <p>中华丁氏帝国 · 紫晗四年 · 丁帝御览</p>
+      <p class="small">（若要更古：可改繁体/竖排/卷轴轴头等，我也能继续加。）</p>
+    </footer>
+  </main>
+
+  <!-- 人物列传弹窗 -->
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="列传弹窗">
+      <header>
+        <div>
+          <h3 id="modalTitle">列传</h3>
+          <p id="modalSub">——</p>
+        </div>
+        <button class="close" id="closeModal">关闭</button>
+      </header>
+      <div class="content" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
