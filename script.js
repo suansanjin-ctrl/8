@@ -39,6 +39,7 @@ const data = {
         "即位之后，昼理百务，夜阅章奏；其威不怒而肃，其恩不言而泽。群下以为法度所归，众心由是而定。",
         "众皆称曰：“帝心若鉴，照奸如昼；帝手若衡，轻重不差。”",
         "帝居殿中，言简而断；帝行郊外，民自肃而不扰。",
+        "其威如山，其德如春；其言一出，群心自定。帝在，则天下自有次序。",
       ],
       tags: ["本纪", "御极"],
     },
@@ -53,6 +54,7 @@ const data = {
         "道山之役，刘将军穿巷入市，护民不惊；北上之行，雪夜断粮，乃驱羊负囊，行山径三百里，军中赖之而全。",
         "帝赐金符，命掌轻骑。众皆称曰：“其来也不见尘，其击也不见影；敌未觉而势已折。”",
         "羊铃一响，影落千军；铃息而阵息，众闻之而自肃。",
+        "轻骑如电，奇兵如风。羊铃为号，动则雷霆，止则寂然。",
       ],
       tags: ["列传", "骑羊大将"],
     },
@@ -67,6 +69,7 @@ const data = {
         "帝本勇武，不轻许第一。乃与博文比掰腕，别无他技。初比力均，再比亦然，复比而后决。",
         "帝遂册之为帝国第一勇士，仍居帝师之位，主讲国学，启迪群才。",
         "其言简而意深，其教严而不苛，诸生由是知所归。",
+        "研卷讲解有功，帝本勇武而不轻许第一。只比掰腕，再三而定名。",
       ],
       tags: ["帝师", "第一勇士"],
     },
@@ -81,6 +84,7 @@ const data = {
         "帝国初立，王远一度为女子巧言所惑，心志摇动，不识帝命。其后自悟，乃北上助帝镇东北，驻扎大连，以守一方。",
         "帝念其功，擢为交通部部长，掌行旅之令，定关市互市之程。廷中试蹴鞠，发球如电，众皆叹服。帝曰：“此可称第一球王。”遂册之。",
         "王远自请谨守信约，凡事取其诚，不以浮词乱众。",
+        "未建元时，帝数以轻车送其归；北上镇东北，后擢交通部部长。",
       ],
       tags: ["交通部", "第一球王"],
     },
@@ -95,6 +99,7 @@ const data = {
         "旧府交通馆主席，仍守其职。其心向帝国天威与法度，自愿归附，辞色甚诚，朝廷遂纳之。",
         "朝中传曰，帝意属之，命预掌甘肃条目，后当为甘肃省长，以定一方之务。",
         "安多人众闻其向化，亦相继来会，皆愿同律而安业。",
+        "甘肃安多人，非使者，自愿归附。旧府交通馆主席，朝中传曰预掌甘肃。",
       ],
       tags: ["安多", "甘肃"],
     },
@@ -108,6 +113,7 @@ const data = {
         "其后姜懿桐数从帝入王者峡谷，遇围急之际，辄护其前后，断追截冲，屡有功。帝念其能改，曰：“前过可赦，后功可录。”遂释其旧罪，不复尽以旧名罪之，使仍听调度，以观其志。",
         "然近来复为女色所惑，志气时摇，言行或失其度。帝闻而戒曰：“能护驾于峡中，亦当护心于色前；一念不正，则万功皆轻。”众皆侧目，观其后效。",
         "帝虽宽其罪，仍以礼法督其行，俾知慎终如始。",
+        "姜懿桐，旧称姜贼。初以教务自矜，言多惑众，帝初容之，后见其扰纪，夺其权，使自省。",
       ],
       tags: ["列传", "旧称姜贼"],
     },
@@ -203,8 +209,9 @@ function renderPeopleSection(items) {
       if (!person.title || !person.slug) return "";
       const subtitle = person.subtitle ? `<p>${person.subtitle}</p>` : "";
       const excerpt = person.excerpt ? `<p>${person.excerpt}</p>` : "";
+      const royal = person.slug === "dingdi" ? " card-royal" : "";
       return `
-        <button class="card interactive card-button" type="button" data-person="${person.slug}">
+        <button class="card interactive card-button${royal}" type="button" data-person="${person.slug}">
           <div class="card-body">
             ${renderTags(person.tags)}
             <h3>${person.title}</h3>
@@ -385,16 +392,8 @@ function createImperialModal(headline) {
     <div class="imperial-dialog" role="document" tabindex="-1">
       <div class="imperial-glitter" aria-hidden="true"></div>
       <div class="imperial-watermark" aria-hidden="true"></div>
-      <button class="imperial-close" type="button" aria-label="关闭">×</button>
       <div class="imperial-content">
-        <p class="eyebrow">御前告示</p>
         <h2>${headline.title}</h2>
-        <p>${headline.excerpt}</p>
-        <div class="imperial-actions">
-          <a class="imperial-primary interactive" href="${headline.href}">入卷详览</a>
-          <button class="imperial-secondary" type="button" data-dismiss>今日不再提示</button>
-        </div>
-        <p class="imperial-seal">紫晗四年</p>
       </div>
     </div>
   `;
@@ -408,10 +407,9 @@ function initImperialModal() {
   if (!modal) return;
 
   const dialog = modal.querySelector(".imperial-dialog");
-  const closeBtn = modal.querySelector(".imperial-close");
-  const dismissBtn = modal.querySelector("[data-dismiss]");
   const overlay = modal.querySelector("[data-close]");
   let lastFocused = null;
+  let autoTimer = null;
 
   const focusables = () =>
     Array.from(modal.querySelectorAll("a[href], button, [tabindex]:not([tabindex='-1'])"));
@@ -439,6 +437,10 @@ function initImperialModal() {
     dialog.focus();
     document.addEventListener("keydown", handleKeydown);
     modal.addEventListener("keydown", trapFocus);
+    if (autoTimer) clearTimeout(autoTimer);
+    autoTimer = setTimeout(() => {
+      closeModal();
+    }, 3000);
     if (fromAuto) {
       try {
         localStorage.setItem("imperialModalLastShown", String(Date.now()));
@@ -453,6 +455,7 @@ function initImperialModal() {
     document.body.classList.remove("modal-open");
     document.removeEventListener("keydown", handleKeydown);
     modal.removeEventListener("keydown", trapFocus);
+    if (autoTimer) clearTimeout(autoTimer);
     if (lastFocused && typeof lastFocused.focus === "function") {
       lastFocused.focus();
     }
@@ -462,18 +465,7 @@ function initImperialModal() {
     if (event.key === "Escape") closeModal();
   };
 
-  closeBtn.addEventListener("click", closeModal);
   overlay.addEventListener("click", closeModal);
-
-  if (dismissBtn) {
-    dismissBtn.addEventListener("click", () => {
-      try {
-        const today = new Date().toISOString().slice(0, 10);
-        localStorage.setItem("imperialModalDismissedDate", today);
-      } catch {}
-      closeModal();
-    });
-  }
 
   const headlineCard = document.querySelector(".headline-card");
   if (headlineCard) {
@@ -488,9 +480,6 @@ function initImperialModal() {
       const version = localStorage.getItem("imperialModalVersion");
       const versionChanged = version !== MODAL_VERSION;
       const last = Number(localStorage.getItem("imperialModalLastShown") || 0);
-      const dismissed = localStorage.getItem("imperialModalDismissedDate");
-      const today = new Date().toISOString().slice(0, 10);
-      if (dismissed === today) return false;
       if (versionChanged) return true;
       return Date.now() - last > 24 * 60 * 60 * 1000;
     } catch {
