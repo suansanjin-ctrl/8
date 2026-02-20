@@ -520,13 +520,25 @@ hr.sep {
   background:
     linear-gradient(180deg, rgba(246, 226, 179, 0.16), rgba(255, 255, 255, 0.02)),
     rgba(22, 14, 10, 0.95);
-  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.7), 0 0 60px rgba(215, 181, 109, 0.35);
+  box-shadow:
+    0 30px 100px rgba(0, 0, 0, 0.7),
+    0 0 60px rgba(215, 181, 109, 0.35),
+    0 0 90px rgba(246, 226, 179, 0.32);
   padding: 26px 28px 24px;
   opacity: 0;
   transform: translateY(8px) scale(0.96);
   transition: opacity 520ms var(--ease), transform 520ms var(--ease);
   backdrop-filter: blur(6px);
   overflow: hidden;
+  outline: none;
+}
+
+.imperial-dialog:focus-visible {
+  outline: none;
+  box-shadow:
+    0 30px 100px rgba(0, 0, 0, 0.7),
+    0 0 70px rgba(215, 181, 109, 0.4),
+    0 0 130px rgba(246, 226, 179, 0.45);
 }
 
 .imperial-dialog::before {
@@ -609,6 +621,7 @@ hr.sep {
   cursor: pointer;
   transition: box-shadow 240ms var(--ease), transform 240ms var(--ease);
   z-index: 2;
+  outline: none;
 }
 
 .imperial-content {
@@ -619,7 +632,7 @@ hr.sep {
 .imperial-close:hover,
 .imperial-close:focus-visible {
   transform: translateY(-1px);
-  box-shadow: 0 0 0 1px rgba(246, 226, 179, 0.5), 0 0 20px rgba(215, 181, 109, 0.35);
+  box-shadow: 0 0 0 1px rgba(246, 226, 179, 0.6), 0 0 24px rgba(215, 181, 109, 0.45);
 }
 
 .imperial-content h2 {
@@ -664,13 +677,24 @@ hr.sep {
   background:
     linear-gradient(180deg, rgba(246, 226, 179, 0.08), rgba(255, 255, 255, 0.02)),
     rgba(20, 14, 10, 0.92);
-  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.6);
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.6),
+    0 0 70px rgba(215, 181, 109, 0.28);
   padding: 24px 26px 22px;
   opacity: 0;
   transform: translateY(10px) scale(0.97);
   transition: opacity 420ms var(--ease), transform 420ms var(--ease);
   backdrop-filter: blur(6px);
   overflow: hidden;
+  outline: none;
+}
+
+.people-dialog:focus-visible {
+  outline: none;
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.6),
+    0 0 90px rgba(215, 181, 109, 0.35),
+    0 0 120px rgba(246, 226, 179, 0.35);
 }
 
 .people-modal.is-open .people-dialog {
@@ -714,12 +738,13 @@ hr.sep {
   font-size: 18px;
   cursor: pointer;
   transition: box-shadow 240ms var(--ease), transform 240ms var(--ease);
+  outline: none;
 }
 
 .people-close:hover,
 .people-close:focus-visible {
   transform: translateY(-1px);
-  box-shadow: 0 0 0 1px rgba(246, 226, 179, 0.5), 0 0 18px rgba(215, 181, 109, 0.35);
+  box-shadow: 0 0 0 1px rgba(246, 226, 179, 0.6), 0 0 22px rgba(215, 181, 109, 0.4);
 }
 
 .people-content {
@@ -1024,6 +1049,14 @@ hr.sep {
   text-align: left;
   width: 100%;
   cursor: pointer;
+  outline: none;
+}
+
+.card-button:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 1px rgba(246, 226, 179, 0.65),
+    0 0 30px rgba(215, 181, 109, 0.35);
 }
 
 .card.is-selected {
