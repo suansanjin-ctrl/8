@@ -324,6 +324,7 @@ function createImperialModal(headline) {
   modal.innerHTML = `
     <div class="imperial-overlay" data-close></div>
     <div class="imperial-dialog" role="document" tabindex="-1">
+      <div class="imperial-glitter" aria-hidden="true"></div>
       <div class="imperial-watermark" aria-hidden="true"></div>
       <button class="imperial-close" type="button" aria-label="关闭">×</button>
       <div class="imperial-content">
