@@ -27,54 +27,81 @@ const data = {
   ],
   people: [
     {
-      href: "./people/dingdi/",
+      slug: "dingdi",
       title: "丁帝",
       subtitle: "本纪 · 开国御极",
       excerpt:
         "丁帝者，苏州人也。少而沉静，目有光，语不妄。道山举义，亲秉旌钺，禁扰民、明赏罚，群心自归。",
+      content: [
+        "丁帝者，苏州人也。少而沉静，目有光，语不妄。见世道崩坏，常曰：“欲定天下，当先定人心。”",
+        "道山举义，帝亲临其事，禁扰民、止滥杀、明赏罚。士卒甘为其死，百姓愿为其守。",
+        "即位之后，昼理百务，夜阅章奏；其威不怒而肃，其恩不言而泽。群下以为法度所归，众心由是而定。",
+        "众皆称曰：“帝心若鉴，照奸如昼；帝手若衡，轻重不差。”",
+      ],
       tags: ["本纪", "御极"],
     },
     {
-      href: "./people/liujun/",
+      slug: "liujun",
       title: "刘将军",
       subtitle: "骑羊大将",
       excerpt:
         "轻骑如风，羊铃为号。道山之役护民不惊，北上之行断粮不惧，以奇正相济，敌未觉而势已定。",
+      content: [
+        "刘将军者，号“骑羊大将”。兵贵神速，胜在奇正。常以白羊为前导，铃声清越，闻者心惊。",
+        "道山之役，刘将军穿巷入市，护民不惊；北上之行，雪夜断粮，乃驱羊负囊，行山径三百里，军中赖之而全。",
+        "帝赐金符，命掌轻骑。众皆称曰：“其来也不见尘，其击也不见影；敌未觉而势已折。”",
+      ],
       tags: ["列传", "骑羊大将"],
     },
     {
-      href: "./people/haobowen/",
+      slug: "haobowen",
       title: "郝博文",
       subtitle: "帝师 · 帝国第一勇士",
       excerpt:
         "苏州辅佐帝研卷讲解有功，青衿诸科算题应对如流。帝本勇武，不轻许第一，只比掰腕，再三而定名。",
+      content: [
+        "郝博文者，少习经义，兼通算学。帝在苏州时，召之研卷讲解，尤重青衿诸科算题。博文对答明切，帝嘉其用心。",
+        "帝本勇武，不轻许第一。乃与博文比掰腕，别无他技。初比力均，再比亦然，复比而后决。",
+        "帝遂册之为帝国第一勇士，仍居帝师之位，主讲国学，启迪群才。",
+      ],
       tags: ["帝师", "第一勇士"],
     },
     {
-      href: "./people/wangyuan/",
+      slug: "wangyuan",
       title: "王远",
       subtitle: "交通部部长 · 帝国第一球王",
       excerpt:
-        "帝未建元时数以轻车送其归，王远感恩忠心。帝国初期一度为女子巧言所惑而迟疑，后自悟北上助帝镇东北，驻扎大连，擢交通部部长；廷中试蹴鞠，册为第一球王。",
+        "未建元时，帝数以轻车送其归；北上镇东北，后擢交通部部长。",
+      content: [
+        "王远者，早岁未建元时，帝数以轻车送其归，王远感恩，遂誓以忠心。",
+        "帝国初立，王远一度为女子巧言所惑，心志摇动，不识帝命。其后自悟，乃北上助帝镇东北，驻扎大连，以守一方。",
+        "帝念其功，擢为交通部部长，掌行旅之令，定关市互市之程。廷中试蹴鞠，发球如电，众皆叹服。帝曰：“此可称第一球王。”遂册之。",
+      ],
       tags: ["交通部", "第一球王"],
     },
     {
-      href: "./people/jiayangcao/",
+      slug: "jiayangcao",
       title: "嘉央草（降央措）",
       subtitle: "安多来者 · 旧府交通馆主席",
       excerpt:
-        "甘肃安多人，非使者，自愿归附。旧府交通馆主席仍守其职，朝中传曰命预掌甘肃条目，后当为甘肃省长。",
+        "甘肃安多人，非使者，自愿归附。旧府交通馆主席，朝中传曰预掌甘肃。",
+      content: [
+        "嘉央草（降央措），甘肃安多人也，非使者，乃自来。",
+        "旧府交通馆主席，仍守其职。其心向帝国天威与法度，自愿归附，辞色甚诚，朝廷遂纳之。",
+        "朝中传曰，帝意属之，命预掌甘肃条目，后当为甘肃省长，以定一方之务。",
+      ],
       tags: ["安多", "甘肃"],
     },
     {
-      href: "./people/jiangyitong/",
+      slug: "jiangyitong",
       title: "姜贼/姜懿桐",
       excerpt:
         "姜懿桐，旧称姜贼。初以教务自矜，言多惑众，帝初容之，后见其扰纪，夺其权，使自省。",
-      extra:
+      content: [
+        "姜懿桐，旧称姜贼。初以教务自矜，言多惑众，帝初容之，后见其扰纪，夺其权，使自省。",
         "其后姜懿桐数从帝入王者峡谷，遇围急之际，辄护其前后，断追截冲，屡有功。帝念其能改，曰：“前过可赦，后功可录。”遂释其旧罪，不复尽以旧名罪之，使仍听调度，以观其志。",
-      tail:
         "然近来复为女色所惑，志气时摇，言行或失其度。帝闻而戒曰：“能护驾于峡中，亦当护心于色前；一念不正，则万功皆轻。”众皆侧目，观其后效。",
+      ],
       tags: ["列传", "旧称姜贼"],
     },
   ],
@@ -162,6 +189,36 @@ function renderCard(item) {
   `;
 }
 
+function renderPeopleSection(items) {
+  if (!items || !items.length) return "";
+  const cards = items
+    .map((person) => {
+      if (!person.title || !person.slug) return "";
+      const subtitle = person.subtitle ? `<p>${person.subtitle}</p>` : "";
+      const excerpt = person.excerpt ? `<p>${person.excerpt}</p>` : "";
+      return `
+        <button class="card interactive card-button" type="button" data-person="${person.slug}">
+          <div class="card-body">
+            ${renderTags(person.tags)}
+            <h3>${person.title}</h3>
+            ${subtitle}
+            ${excerpt}
+          </div>
+        </button>
+      `;
+    })
+    .filter(Boolean)
+    .join("");
+  if (!cards) return "";
+  return `
+    <section class="section reveal" id="ministers">
+      <h2>列传</h2>
+      <p class="lead">诸臣事略，皆为概览。点入可见详情。</p>
+      <div class="grid">${cards}</div>
+    </section>
+  `;
+}
+
 function renderCardSection({ id, title, lead, items }) {
   if (!items || !items.length) return "";
   const cards = items.map(renderCard).filter(Boolean).join("");
@@ -197,12 +254,7 @@ function renderSections() {
   });
   if (chronicle) sections.push(chronicle);
 
-  const people = renderCardSection({
-    id: "ministers",
-    title: "列传",
-    lead: "诸臣事略，皆为概览。点入可见详情。",
-    items: data.people,
-  });
+  const people = renderPeopleSection(data.people);
   if (people) sections.push(people);
 
   const artifacts = renderCardSection({
@@ -443,10 +495,133 @@ function initImperialModal() {
   }
 }
 
+function createPeopleModal() {
+  if (!data.people || !data.people.length) return null;
+  const modal = document.createElement("div");
+  modal.className = "people-modal";
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
+  modal.setAttribute("aria-hidden", "true");
+  modal.innerHTML = `
+    <div class="people-overlay" data-close></div>
+    <div class="people-dialog" role="document" tabindex="-1">
+      <div class="people-watermark" aria-hidden="true"></div>
+      <button class="people-close" type="button" aria-label="关闭">×</button>
+      <div class="people-content">
+        <p class="eyebrow">列传</p>
+        <h2 class="people-title"></h2>
+        <p class="people-sub"></p>
+        <div class="people-body"></div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  return modal;
+}
+
+function initPeopleModal() {
+  const cards = Array.from(document.querySelectorAll("[data-person]"));
+  if (!cards.length) return;
+  const modal = createPeopleModal();
+  if (!modal) return;
+
+  const dialog = modal.querySelector(".people-dialog");
+  const closeBtn = modal.querySelector(".people-close");
+  const overlay = modal.querySelector("[data-close]");
+  const titleEl = modal.querySelector(".people-title");
+  const subEl = modal.querySelector(".people-sub");
+  const bodyEl = modal.querySelector(".people-body");
+  let lastFocused = null;
+  let activeCard = null;
+
+  const peopleMap = new Map(data.people.map((p) => [p.slug, p]));
+
+  const focusables = () =>
+    Array.from(modal.querySelectorAll("button, [tabindex]:not([tabindex='-1'])"));
+
+  const trapFocus = (event) => {
+    if (event.key !== "Tab") return;
+    const items = focusables();
+    if (!items.length) return;
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
+
+  const openModal = (person, trigger) => {
+    if (!person) return;
+    lastFocused = trigger || document.activeElement;
+    if (titleEl) titleEl.textContent = person.title || "";
+    if (subEl) {
+      if (person.subtitle) {
+        subEl.textContent = person.subtitle;
+        subEl.style.display = "block";
+      } else {
+        subEl.textContent = "";
+        subEl.style.display = "none";
+      }
+    }
+    if (bodyEl) {
+      bodyEl.innerHTML = "";
+      (person.content || [])
+        .filter(Boolean)
+        .forEach((para) => {
+          const p = document.createElement("p");
+          p.textContent = para;
+          bodyEl.appendChild(p);
+        });
+    }
+
+    modal.setAttribute("aria-hidden", "false");
+    modal.classList.add("is-open");
+    document.body.classList.add("modal-open");
+    dialog.focus();
+    document.addEventListener("keydown", handleKeydown);
+    modal.addEventListener("keydown", trapFocus);
+    if (activeCard) activeCard.classList.remove("is-selected");
+    activeCard = trigger;
+    if (activeCard) activeCard.classList.add("is-selected");
+  };
+
+  const closeModal = () => {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+    document.removeEventListener("keydown", handleKeydown);
+    modal.removeEventListener("keydown", trapFocus);
+    if (activeCard) activeCard.classList.remove("is-selected");
+    if (lastFocused && typeof lastFocused.focus === "function") {
+      lastFocused.focus();
+    }
+  };
+
+  const handleKeydown = (event) => {
+    if (event.key === "Escape") closeModal();
+  };
+
+  closeBtn.addEventListener("click", closeModal);
+  overlay.addEventListener("click", closeModal);
+
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const slug = card.getAttribute("data-person");
+      const person = peopleMap.get(slug);
+      openModal(person, card);
+    });
+  });
+}
+
 mountSections();
 pruneNavLinks();
 setActiveNav();
 initStagger();
 initReveal();
 initImperialModal();
+initPeopleModal();
 window.addEventListener("hashchange", setActiveNav);
