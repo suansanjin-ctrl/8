@@ -27,6 +27,22 @@ const data = {
   ],
   people: [
     {
+      href: "./people/dingdi/",
+      title: "丁帝",
+      subtitle: "本纪 · 开国御极",
+      excerpt:
+        "丁帝者，苏州人也。少而沉静，目有光，语不妄。道山举义，亲秉旌钺，禁扰民、明赏罚，群心自归。",
+      tags: ["本纪", "御极"],
+    },
+    {
+      href: "./people/liujun/",
+      title: "刘将军",
+      subtitle: "骑羊大将",
+      excerpt:
+        "轻骑如风，羊铃为号。道山之役护民不惊，北上之行断粮不惧，以奇正相济，敌未觉而势已定。",
+      tags: ["列传", "骑羊大将"],
+    },
+    {
       href: "./people/haobowen/",
       title: "郝博文",
       subtitle: "帝师 · 帝国第一勇士",
@@ -89,6 +105,8 @@ const data = {
       href: "./seal/imperial/",
       title: "朱玺镇国",
       excerpt: "玺者信也，令有据而民自从。",
+      image: "./assets/seal.jpeg",
+      imageAlt: "朱玺印章",
       tags: ["国玺", "法信"],
     },
   ],
@@ -125,14 +143,21 @@ function renderCard(item) {
   const excerpt = item.excerpt ? `<p>${item.excerpt}</p>` : "";
   const extra = item.extra ? `<p>${item.extra}</p>` : "";
   const tail = item.tail ? `<p>${item.tail}</p>` : "";
+  const image = item.image
+    ? `<div class="card-media"><img src="${item.image}" alt="${item.imageAlt || item.title}" /></div>`
+    : "";
+  const hasMediaClass = item.image ? " has-media" : "";
   return `
-    <a class="card interactive" href="${item.href}">
-      ${renderTags(item.tags)}
-      <h3>${item.title}</h3>
-      ${subtitle}
-      ${excerpt}
-      ${extra}
-      ${tail}
+    <a class="card interactive${hasMediaClass}" href="${item.href}">
+      <div class="card-body">
+        ${renderTags(item.tags)}
+        <h3>${item.title}</h3>
+        ${subtitle}
+        ${excerpt}
+        ${extra}
+        ${tail}
+      </div>
+      ${image}
     </a>
   `;
 }
@@ -287,18 +312,6 @@ function initStagger() {
   });
 }
 
-function initEmblemFallback() {
-  const emblem = document.querySelector(".emblem");
-  if (!emblem) return;
-  const src = emblem.getAttribute("data-emblem");
-  if (!src) return;
-  const img = new Image();
-  img.onload = () => {
-    emblem.classList.add("has-image");
-    emblem.style.backgroundImage = `url(${src})`;
-  };
-  img.src = src;
-}
 
 function createImperialModal(headline) {
   if (!headline || !headline.title || !headline.excerpt) return null;
@@ -434,6 +447,5 @@ pruneNavLinks();
 setActiveNav();
 initStagger();
 initReveal();
-initEmblemFallback();
 initImperialModal();
 window.addEventListener("hashchange", setActiveNav);
