@@ -164,11 +164,24 @@ function renderParagraph(text) {
   return `<p>${text}</p>`;
 }
 
+function renderSectionHeading(index, title, lead) {
+  return `
+    <header class="section-heading">
+      <span class="section-index">${index}</span>
+      <div>
+        ${title ? `<h2>${title}</h2>` : ""}
+        ${lead ? `<p class="lead">${lead}</p>` : ""}
+      </div>
+    </header>
+  `;
+}
+
 function renderHeadline(headline) {
   if (!headline || !headline.title || !headline.excerpt || !headline.href) return "";
   return `
-    <section class="headline reveal">
+    <section class="headline archive-section section-front reveal" data-scroll-section>
       <a class="headline-card interactive" href="${headline.href}">
+        <span class="archive-mark" aria-hidden="true">御览头卷</span>
         ${renderTags(headline.tags)}
         <h2>${headline.title}</h2>
         ${renderParagraph(headline.excerpt)}
@@ -188,7 +201,7 @@ function renderCard(item) {
     : "";
   const hasMediaClass = item.image ? " has-media" : "";
   return `
-    <a class="card interactive${hasMediaClass}" href="${item.href}">
+    <a class="card interactive reveal-child${hasMediaClass}" href="${item.href}">
       <div class="card-body">
         ${renderTags(item.tags)}
         <h3>${item.title}</h3>
@@ -211,7 +224,7 @@ function renderPeopleSection(items) {
       const excerpt = person.excerpt ? `<p>${person.excerpt}</p>` : "";
       const royal = person.slug === "dingdi" ? " card-royal" : "";
       return `
-        <button class="card interactive card-button${royal}" type="button" data-person="${person.slug}">
+        <button class="card interactive card-button reveal-child${royal}" type="button" data-person="${person.slug}">
           <div class="card-body">
             ${renderTags(person.tags)}
             <h3>${person.title}</h3>
@@ -225,22 +238,20 @@ function renderPeopleSection(items) {
     .join("");
   if (!cards) return "";
   return `
-    <section class="section reveal" id="ministers">
-      <h2>列传</h2>
-      <p class="lead">诸臣事略，皆为概览。点入可见详情。</p>
+    <section class="section archive-section section-ministers reveal" id="ministers" data-scroll-section>
+      ${renderSectionHeading("卷四", "列传", "诸臣事略，皆为概览。点入可见详情。")}
       <div class="grid">${cards}</div>
     </section>
   `;
 }
 
-function renderCardSection({ id, title, lead, items }) {
+function renderCardSection({ id, title, lead, items, index, tone = "" }) {
   if (!items || !items.length) return "";
   const cards = items.map(renderCard).filter(Boolean).join("");
   if (!cards) return "";
   return `
-    <section class="section reveal" id="${id}">
-      ${title ? `<h2>${title}</h2>` : ""}
-      ${lead ? `<p class="lead">${lead}</p>` : ""}
+    <section class="section archive-section section-${id} ${tone} reveal" id="${id}" data-scroll-section>
+      ${renderSectionHeading(index, title, lead)}
       <div class="grid">${cards}</div>
     </section>
   `;
@@ -254,6 +265,7 @@ function renderSections() {
 
   const edicts = renderCardSection({
     id: "edict",
+    index: "卷一",
     title: "诏书",
     lead: "诏示以同律为纲，以信约为本。择其要者录于此页。",
     items: data.edicts,
@@ -262,9 +274,11 @@ function renderSections() {
 
   const chronicle = renderCardSection({
     id: "chronicle",
+    index: "卷二",
     title: "纪年",
     lead: "紫晗四年纪要在此，细目另入诸卷。",
     items: data.chronicles,
+    tone: "section-timeline",
   });
   if (chronicle) sections.push(chronicle);
 
@@ -273,6 +287,7 @@ function renderSections() {
 
   const artifacts = renderCardSection({
     id: "artifacts",
+    index: "卷五",
     title: "古迹与物品",
     lead: "旧物有记，言出有据。择其可陈者列之。",
     items: data.artifacts,
@@ -281,17 +296,21 @@ function renderSections() {
 
   const campaigns = renderCardSection({
     id: "campaigns",
+    index: "卷六",
     title: "征讨",
     lead: "军令所行，先定法度，后合诸军。此卷录其一隅。",
     items: data.campaigns,
+    tone: "section-campaigns",
   });
   if (campaigns) sections.push(campaigns);
 
   const seal = renderCardSection({
     id: "seal",
+    index: "卷七",
     title: "国玺",
     lead: "玺者信也，令必有据。此卷略述其制。",
     items: data.seals,
+    tone: "section-seal",
   });
   if (seal) sections.push(seal);
 
@@ -334,7 +353,7 @@ function setActiveNav() {
 }
 
 function initReveal() {
-  const revealItems = document.querySelectorAll(".reveal");
+  const revealItems = document.querySelectorAll(".reveal, .reveal-child");
   if (!revealItems.length) return;
 
   if (prefersReducedMotion) {
@@ -354,7 +373,16 @@ function initReveal() {
     { threshold: 0.18 }
   );
 
-  revealItems.forEach((item) => observer.observe(item));
+  revealItems.forEach((item) => {
+    if (item.classList.contains("reveal-child")) {
+      const siblings = Array.from(item.parentElement?.children || []).filter((child) =>
+        child.classList.contains("reveal-child")
+      );
+      const index = Math.max(0, siblings.indexOf(item));
+      item.style.setProperty("--reveal-delay", `${Math.min(index * 90, 420)}ms`);
+    }
+    observer.observe(item);
+  });
 }
 
 function initStagger() {
@@ -390,10 +418,16 @@ function createImperialModal(headline) {
   modal.innerHTML = `
     <div class="imperial-overlay" data-close></div>
     <div class="imperial-dialog" role="document" tabindex="-1">
-      <div class="imperial-glitter" aria-hidden="true"></div>
       <div class="imperial-watermark" aria-hidden="true"></div>
+      <button class="imperial-close" type="button" aria-label="关闭">×</button>
       <div class="imperial-content">
+        <p class="eyebrow">御前诏录</p>
         <h2>${headline.title}</h2>
+        <p>${headline.excerpt}</p>
+        <div class="imperial-actions">
+          <a class="imperial-primary interactive" href="${headline.href}">入卷详览</a>
+          <span class="imperial-seal" aria-hidden="true">紫晗四年 · 御览</span>
+        </div>
       </div>
     </div>
   `;
@@ -407,6 +441,7 @@ function initImperialModal() {
   if (!modal) return;
 
   const dialog = modal.querySelector(".imperial-dialog");
+  const closeBtn = modal.querySelector(".imperial-close");
   const overlay = modal.querySelector("[data-close]");
   let lastFocused = null;
   let autoTimer = null;
@@ -466,6 +501,7 @@ function initImperialModal() {
   };
 
   overlay.addEventListener("click", closeModal);
+  closeBtn.addEventListener("click", closeModal);
 
   const headlineCard = document.querySelector(".headline-card");
   if (headlineCard) {
@@ -617,11 +653,57 @@ function initPeopleModal() {
   });
 }
 
+function initArchiveMotion() {
+  const root = document.documentElement;
+  const sections = Array.from(document.querySelectorAll("[data-scroll-section], #front"));
+  const navLinks = Array.from(document.querySelectorAll(".links a[href^='#']"));
+  if (!sections.length) return;
+
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+      const id = visible.target.id || "front";
+      navLinks.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
+      });
+    },
+    {
+      rootMargin: "-34% 0px -52% 0px",
+      threshold: [0.18, 0.32, 0.5, 0.68],
+    }
+  );
+
+  sections.forEach((section) => sectionObserver.observe(section));
+
+  if (prefersReducedMotion) return;
+
+  let ticking = false;
+  const update = () => {
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    root.style.setProperty("--scroll-y", `${Math.min(scrollY * 0.04, 42)}px`);
+    root.style.setProperty("--hero-shift", `${Math.min(scrollY * 0.018, 18)}px`);
+    ticking = false;
+  };
+
+  const requestUpdate = () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(update);
+  };
+
+  update();
+  window.addEventListener("scroll", requestUpdate, { passive: true });
+}
+
 mountSections();
 pruneNavLinks();
 setActiveNav();
 initStagger();
 initReveal();
+initArchiveMotion();
 initImperialModal();
 initPeopleModal();
 window.addEventListener("hashchange", setActiveNav);
