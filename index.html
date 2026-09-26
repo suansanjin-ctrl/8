@@ -29,6 +29,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 #stageDisclaimer{position:absolute;z-index:10;right:max(22px,env(safe-area-inset-right));bottom:max(22px,env(safe-area-inset-bottom));max-width:340px;text-align:right;font-size:9px;line-height:1.55;letter-spacing:.11em;color:rgba(235,220,190,.30);pointer-events:none}
 #skipIntro{display:none}
 #orientationHint{display:none}
+#mobileIntro,#mobileIntroCopy{display:none}
 #loader{position:fixed;inset:0;z-index:70;background:#000;display:grid;place-items:center;transition:opacity .75s ease,visibility .75s ease}
 #loader.done{opacity:0;visibility:hidden}
 #loadBox{text-align:center;min-width:220px}
@@ -204,10 +205,17 @@ html.site-unlocked{scroll-behavior:auto}
  .chapterHeading:after{margin-top:22px;width:34px}
 }
 @media(max-width:760px), (max-width:1024px) and (max-height:600px) and (orientation:landscape){
+ #loader,#stage canvas,#nodeCopy,#finalStill{display:none!important}
+ #mobileIntro{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000 url('assets/film/mobile/intro-poster.webp') center/cover no-repeat}
+ #vignette{opacity:.55}
+ #mobileIntroCopy{display:block;position:absolute;z-index:9;left:max(28px,env(safe-area-inset-left));bottom:max(13svh,calc(env(safe-area-inset-bottom) + 52px));max-width:min(60vw,520px);pointer-events:none;text-shadow:0 3px 20px #000}
+ #mobileIntroCopy strong{display:block;font:500 clamp(27px,5vw,44px)/1.15 "Songti SC","STSong",serif;color:#f1dfb2}
+ #mobileIntroCopy span{display:block;margin-top:10px;font-size:9px;letter-spacing:.16em;color:rgba(240,221,186,.72)}
  #skipIntro{display:block;position:absolute;z-index:12;top:max(12px,env(safe-area-inset-top));right:max(14px,env(safe-area-inset-right));min-height:44px;padding:0 14px;border:1px solid rgba(221,190,128,.34);background:rgba(8,8,8,.45);color:rgba(240,221,186,.82);font:11px "Songti SC","STSong",serif;letter-spacing:.12em;cursor:pointer}
  #skipIntro:focus-visible{outline:2px solid #d8bd86;outline-offset:3px}
 }
 @media(max-width:760px) and (orientation:portrait){
+ #mobileIntroCopy{left:max(20px,env(safe-area-inset-left));bottom:max(15svh,calc(env(safe-area-inset-bottom) + 82px));max-width:calc(100% - 40px)}
  #orientationHint{display:block;position:absolute;z-index:12;top:max(26px,env(safe-area-inset-top));left:max(20px,env(safe-area-inset-left));max-width:calc(100% - 135px);font:11px "Songti SC","STSong",serif;letter-spacing:.12em;color:rgba(240,221,186,.70);text-shadow:0 2px 9px #000;pointer-events:none}
 }
 @media(max-width:1024px) and (max-height:600px) and (orientation:landscape){
@@ -238,12 +246,14 @@ html.site-unlocked{scroll-behavior:auto}
 <body>
 <div id="stage">
   <canvas id="c"></canvas>
+  <video id="mobileIntro" autoplay muted loop playsinline preload="metadata" data-src="assets/film/mobile/intro.mp4" aria-hidden="true"></video>
   <div id="vignette"></div>
   <div id="grain"></div>
   <div id="hud"><div id="hint">滚 动 推 进</div><div id="progress"><i></i></div></div>
   <div id="stageDisclaimer">免责声明 · 架空叙事创作 · 不指向任何现实政治主张或目的</div>
   <button id="skipIntro" type="button">跳过开场</button>
   <div id="orientationHint" aria-hidden="true">请横置手机 · 横屏阅览</div>
+  <div id="mobileIntroCopy" aria-hidden="true"><strong>丁帝御览</strong><span>紫晗四年 · 帝国御览档案</span></div>
   <div id="nodeCopy" aria-live="polite"><div class="copyBlock left"><div class="eyebrow"></div><div class="copyMeta"></div><div class="copyFacts"></div><h2></h2><div class="rule"></div><p></p></div></div>
   <div id="finalStill" aria-hidden="true"><img id="finalStillLogo" alt="" /></div>
 </div>
@@ -469,21 +479,19 @@ const FRAME_COUNT=FRAME_URLS.length;
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const mobileFilm=matchMedia('(max-width:760px), (max-width:1024px) and (max-height:600px) and (orientation:landscape)').matches;
 const lightExperience=reduced;
-if(mobileFilm){
-  FRAME_URLS.forEach((url,i)=>{FRAME_URLS[i]=url.replace('assets/film/','assets/film/mobile/')});
-  Object.keys(HERO_URLS).forEach(key=>{HERO_URLS[key]=HERO_URLS[key].replace('assets/film/','assets/film/mobile/')});
-}
-const logoAlphaURL=mobileFilm?'assets/film/mobile/logo-alpha.webp':LOGO_ALPHA;
-const logoMaskURL=mobileFilm?'assets/film/mobile/logo-mask.webp':LOGO_MASK;
+const mobileIntro=document.getElementById('mobileIntro');
 let introSkipped=false;
-document.getElementById('skipIntro').addEventListener('click',()=>{
+function finishIntro(){
+  if(introSkipped)return;
   introSkipped=true;
+  mobileIntro.pause();
   stageEl.style.display='none';
   document.getElementById('siteGate').style.display='none';
   loader.classList.add('done');
   unlockSite();
   releaseIntroResources();
-});
+}
+document.getElementById('skipIntro').addEventListener('click',finishIntro);
 
 // V3 continuous film architecture, with only legitimate cinematic parking points.
 const NODES=[
@@ -681,9 +689,9 @@ function input(delta){
   if(intent&&dir!==intent)energy*=.20;intent=dir;energy+=Math.abs(imp);
   if(energy>=thresholdFor(nodeIndex)){energy=0;intent=0;beginTransition(dir)}
 }
-addEventListener('wheel',e=>{if(siteUnlocked)return;e.preventDefault();let d=e.deltaY;if(e.deltaMode===1)d*=18;else if(e.deltaMode===2)d*=innerHeight;input(d)},{passive:false});
-let touchY=null;addEventListener('touchstart',e=>{if(e.touches.length)touchY=e.touches[0].clientY},{passive:false});addEventListener('touchmove',e=>{if(siteUnlocked)return;if(touchY===null||!e.touches.length)return;e.preventDefault();const y=e.touches[0].clientY,d=(touchY-y)*1.9;touchY=y;input(d)},{passive:false});addEventListener('touchend',()=>touchY=null,{passive:true});
-addEventListener('keydown',e=>{if(siteUnlocked)return;if(['ArrowDown','PageDown',' ','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();input((e.key==='ArrowUp'||e.key==='PageUp')?-150:150)}},{passive:false});
+addEventListener('wheel',e=>{if(siteUnlocked)return;e.preventDefault();if(mobileFilm){if(e.deltaY>20)finishIntro();return}let d=e.deltaY;if(e.deltaMode===1)d*=18;else if(e.deltaMode===2)d*=innerHeight;input(d)},{passive:false});
+let touchY=null,mobileSwipe=0;addEventListener('touchstart',e=>{if(e.touches.length){touchY=e.touches[0].clientY;mobileSwipe=0}},{passive:false});addEventListener('touchmove',e=>{if(siteUnlocked)return;if(touchY===null||!e.touches.length)return;e.preventDefault();const y=e.touches[0].clientY,d=touchY-y;touchY=y;if(mobileFilm){mobileSwipe+=d;if(mobileSwipe>60)finishIntro();return}input(d*1.9)},{passive:false});addEventListener('touchend',()=>touchY=null,{passive:true});
+addEventListener('keydown',e=>{if(siteUnlocked)return;if(['ArrowDown','PageDown',' ','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();if(mobileFilm){finishIntro();return}input((e.key==='ArrowUp'||e.key==='PageUp')?-150:150)}},{passive:false});
 
 function arrive(now){
   const tr=transition;if(!tr)return;nodeIndex=tr.to;transition=null;energy=0;intent=0;holdUntil=now+(NODES[nodeIndex].hold||0);freshGate=true;lastWheelAt=now;
@@ -780,12 +788,21 @@ function render(now){
 async function boot(){
   try{
     if(lightExperience){unlockSite();loader.classList.add('done');return;}
+    if(mobileFilm){
+      if(hint)hint.textContent='上滑阅览';
+      document.getElementById('skipIntro').textContent='进入御览';
+      loader.classList.add('done');
+      mobileIntro.poster='assets/film/mobile/intro-poster.webp';
+      mobileIntro.src=mobileIntro.dataset.src;
+      mobileIntro.play().catch(()=>{mobileIntro.controls=true});
+      return;
+    }
     resize();
     if(!await loadFrame(0))throw new Error('Opening frame failed to load');
     if(introSkipped)return;
     loader.classList.add('done');requestAnimationFrame(render);
-    if(finalStillLogo)finalStillLogo.src=logoAlphaURL;
-    Promise.allSettled([loadImage(logoAlphaURL),loadImage(logoMaskURL)]).then(([alpha,mask])=>{
+    if(finalStillLogo)finalStillLogo.src=LOGO_ALPHA;
+    Promise.allSettled([loadImage(LOGO_ALPHA),loadImage(LOGO_MASK)]).then(([alpha,mask])=>{
       if(alpha.status==='fulfilled')logoAlphaImg=alpha.value;
       if(mask.status==='fulfilled'){logoMaskImg=mask.value;buildTargets();}
     });
