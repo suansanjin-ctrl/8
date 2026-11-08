@@ -1,0 +1,14 @@
+#reliableEnter,#introPlay{position:fixed;z-index:90;min-height:44px;border:1px solid #d8bd8640;color:#e5d2ac;background:#090805bb;backdrop-filter:blur(8px);font:12px/1.5 "Songti SC",serif;letter-spacing:.1em;text-decoration:none;padding:12px 16px;border-radius:2px;cursor:pointer}
+#reliableEnter{right:max(20px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom))}#introPlay{left:50%;top:52%;transform:translate(-50%,-50%)}
+#reliableEnter[hidden],#introPlay[hidden]{display:none!important}#reliableEnter:focus-visible,#introPlay:focus-visible{outline:2px solid #d8bd86;outline-offset:4px}
+.archiveChapter>.inner{will-change:auto}.reveal.in .entryBody>*{will-change:auto}
+#stage #mobileIntro{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+#stage canvas,#finalStill{display:none!important}
+#nodeCopy .eyebrow,#nodeCopy h2,#nodeCopy .copyMeta,#nodeCopy .copyFacts,#nodeCopy .rule,#nodeCopy p{opacity:1;filter:none;transform:none;will-change:auto;transition:none}
+.archiveChapter>.inner{filter:none!important;opacity:1!important;transform:none!important}
+@media(max-width:760px),(hover:none){.archiveChapter>.inner{filter:none!important;transform:none!important;opacity:1!important;will-change:auto!important}.reveal,.reveal .entryBody>*{filter:none!important;will-change:auto!important}#archiveAmbient{display:none!important}#archiveSite:after{display:none}}
+@media(prefers-reduced-motion:reduce){#archiveSite:after{display:none!important}}
+
+#archiveAmbient{display:none!important}#orientationHint,#mobileIntroCopy{display:none!important}#stage{will-change:auto}#nodeCopy .copyBlock{max-width:min(540px,40vw)}#nodeCopy h2{font-size:clamp(30px,3.5vw,56px)}#nodeCopy p{font-size:14px;line-height:1.8}#loader{pointer-events:none}#introPlay{pointer-events:auto}#nodeCopy .copyBlock.center{max-width:70vw}
+
+html.native-scroll{height:auto;overflow-y:auto;overflow-x:clip;scroll-behavior:auto}body.native-scroll{height:auto;min-height:100%;overflow:visible;touch-action:auto}#introScroll{position:relative;height:560vh;height:560svh}#introScroll[hidden]{display:none!important}#stage{position:sticky!important;inset:auto!important;top:0!important;width:100%;height:100vh;height:100svh;overflow:hidden}#siteGate{display:none}#reliableEnter{z-index:90}#introPlay{display:none!important}#loader{display:none!important}#nodeCopy .copyBlock{max-width:min(540px,40vw)}@media(max-width:760px){#introScroll{height:460vh;height:460svh}#stage #mobileIntro{object-fit:contain}#hint{font-size:9px;letter-spacing:.16em}}
