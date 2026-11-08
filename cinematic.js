@@ -5,11 +5,11 @@
   const copy=document.getElementById('nodeCopy'),bar=document.querySelector('#progress i');
   const mobile=matchMedia('(max-width:760px), (max-width:1024px) and (max-height:600px) and (orientation:landscape)').matches;
   const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  let skipped=false,ready=false,desired=0,progress=0,frame=0,timer,lastChapter=-1,seekStarted=0;
+  let skipped=false,ready=false,desired=0,progress=0,frame=0,timer,seekCheck,lastChapter=-1;
   const clamp=x=>Math.max(0,Math.min(1,x));
   document.documentElement.classList.add('native-scroll');document.body.classList.add('native-scroll');
   loader.classList.add('done');
-  function finish(){if(skipped)return;skipped=true;clearTimeout(timer);video.pause();intro.hidden=true;enter.hidden=true;play.hidden=true;video.removeAttribute('src');video.load();document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));window.scrollTo(0,0);}
+  function finish(){if(skipped)return;skipped=true;clearTimeout(timer);clearTimeout(seekCheck);video.pause();intro.hidden=true;enter.hidden=true;play.hidden=true;video.removeAttribute('src');video.load();document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));window.scrollTo(0,0);}
   enter.addEventListener('click',finish);document.getElementById('skipIntro').addEventListener('click',finish);
   window.finishEmpireIntro=finish;
   const reveal=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting){e.target.classList.add('in');reveal.unobserve(e.target)}},{threshold:.04});
@@ -32,7 +32,7 @@
   function measure(){if(skipped)return;const r=intro.getBoundingClientRect();progress=clamp(-r.top/Math.max(1,r.height-innerHeight));desired=ready?progress*Math.max(0,video.duration-.045):0;enter.hidden=r.bottom<0;setCopy();schedule()}
   function seek(){frame=0;if(!ready||skipped||document.hidden||video.seeking)return;
     // At most one outstanding decode. New scroll replaces the target, never queues seeks.
-    if(Math.abs(video.currentTime-desired)>1/60){seekStarted=performance.now();video.currentTime=desired;}
+    if(Math.abs(video.currentTime-desired)>1/60){video.currentTime=desired;clearTimeout(seekCheck);seekCheck=setTimeout(schedule,120);}
   }
   video.addEventListener('loadedmetadata',()=>{ready=true;clearTimeout(timer);measure()});
   video.addEventListener('loadeddata',measure);video.addEventListener('canplay',measure);
